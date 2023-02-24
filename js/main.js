@@ -1,42 +1,42 @@
 const COUNT_OF_TEST_USERS = 25;
 
-const messagePartsList = {
-  1: 'Всё отлично!',
-  2: 'В целом всё неплохо.',
-  3: 'Но не всё.',
-  4: 'Когда вы делаете фотографию, хорошо бы убирать палец из кадра.',
-  5: 'В конце концов это просто непрофессионально.',
-  6: 'Моя бабушка случайно чихнула с фотоаппаратом в руках и у неё получилась фотография лучше.',
-  7: 'Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.',
-  8: 'Лица у людей на фотке перекошены, как будто их избивают.',
-  9: 'Как можно было поймать такой неудачный момент?!'
-};
+const messagePartsList = [
+  'Всё отлично!',
+  'В целом всё неплохо.',
+  'Но не всё.',
+  'Когда вы делаете фотографию, хорошо бы убирать палец из кадра.',
+  'В конце концов это просто непрофессионально.',
+  'Моя бабушка случайно чихнула с фотоаппаратом в руках и у неё получилась фотография лучше.',
+  'Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.',
+  'Лица у людей на фотке перекошены, как будто их избивают.',
+  'Как можно было поймать такой неудачный момент?!'
+];
 
-const nameList = {
-  1: 'Чернышев Тихон',
-  2: 'Васильев Тимофей',
-  3: 'Акимова Екатерина',
-  4: 'Кузин Гордей',
-  5: 'Васильев Степан',
-  6: 'Морозова Ксения',
-  7: 'Тихонова Валерия',
-  8: 'Андреева Ангелина',
-  9: 'Савельева Виктория',
-  10: 'Лебедев Максим'
-};
+const nameList = [
+  'Чернышев Тихон',
+  'Васильев Тимофей',
+  'Акимова Екатерина',
+  'Кузин Гордей',
+  'Васильев Степан',
+  'Морозова Ксения',
+  'Тихонова Валерия',
+  'Андреева Ангелина',
+  'Савельева Виктория',
+  'Лебедев Максим'
+];
 
-const descriptionList = {
-  1: 'добрая',
-  2: 'душевная',
-  3: 'дружелюбная',
-  4: 'дивная',
-  5: 'единственная',
-  6: 'женственная',
-  7: 'желанная',
-  8: 'жизнерадостная',
-  9: 'заботливая',
-  10: 'завораживающая'
-};
+const descriptionList = [
+  'добрая',
+  'душевная',
+  'дружелюбная',
+  'дивная',
+  'единственная',
+  'женственная',
+  'желанная',
+  'жизнерадостная',
+  'заботливая',
+  'завораживающая'
+];
 
 function getRandomInteger(min, max) {
   const lower = Math.ceil(Math.min(Math.abs(min), Math.abs(max)));
@@ -62,7 +62,7 @@ function createRandomIdFromRangeGenerator(min, max) {
 }
 
 function getDescription() {
-  return `Моя ${descriptionList[getRandomInteger(1, 10)]} жизнь.`;
+  return `Моя ${descriptionList[getRandomInteger(0, descriptionList.length - 1)]} жизнь.`;
 }
 
 function getRandomLikes() {
@@ -87,7 +87,7 @@ function getComments() {
 }
 
 function getRandomName() {
-  return nameList[getRandomInteger(1, 10)];
+  return nameList[getRandomInteger(0, nameList.length - 1)];
 }
 
 function getRandomMessage() {
@@ -95,14 +95,13 @@ function getRandomMessage() {
   const latestIndexMessageParts = [];
 
   for (let i = 0; i < getRandomInteger(1, 2); i++) {
-    let messageIndex = getRandomInteger(1, 9);
+    let messageIndex = getRandomInteger(1, messagePartsList.length) - 1;
     while (latestIndexMessageParts.includes(messageIndex)) {
-      messageIndex = getRandomInteger(1, 9);
+      messageIndex = getRandomInteger(1, messagePartsList.length) - 1;
     }
     latestIndexMessageParts.push(messageIndex);
-    result += ` ${messagePartsList[messageIndex]}`;
+    result += `${messagePartsList[messageIndex]} `;
   }
-
   return result;
 }
 
