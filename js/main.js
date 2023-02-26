@@ -1,4 +1,5 @@
 const COUNT_OF_TEST_USERS = 25;
+const commentId = createRandomIdFromRangeGenerator(1, COUNT_OF_TEST_USERS * 5);
 
 const messagePartsList = [
   'Всё отлично!',
@@ -72,11 +73,10 @@ function getRandomLikes() {
 function getComments() {
   const commentsCount = getRandomInteger(1, 5);
   const commentsList = [];
-  const id = createRandomIdFromRangeGenerator(1, commentsCount);
 
   for (let i = 0; i < commentsCount; i++) {
     const comment = {
-      id: id(),
+      id: commentId(),
       avatar: `img/avatar-${getRandomInteger(1, 6)}.svg`,
       message: getRandomMessage(),
       name: getRandomName()
@@ -126,4 +126,4 @@ function getPhotoDescriptions() {
   };
 }
 
-getPhotoDescriptions();
+getPhotoDescriptions()();
