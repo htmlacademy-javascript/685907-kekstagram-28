@@ -1,32 +1,26 @@
-import {removeComments, photoEnrichment} from './photoEnrichment.js';
+import {photoEnrichment} from './photoEnrichment.js';
+import {removeComments} from './removeComment.js';
 
 const closePhotoButton = document.querySelector('.big-picture__cancel');
 const bigPhoto = document.querySelector('.big-picture');
 const miniPhoto = document.querySelector('.pictures');
 const body = document.querySelector('body');
+const commentPlace = document.querySelector('.social__comments');
 
-function runAfterCloseEvents(list) {
-  bigPhoto.classList.add('hidden');
-  removeComments(list);
-  body.classList.remove('modal-open');
-}
+const onPhotoKeydown = (evt) => {
+  if (evt.key === 'Escape') {
+    evt.preventDefault();
+    closePhotoModal();
+  }
+};
 
-function addCloseEvents(commentsList) {
-  closePhotoButton.addEventListener('click', () => {
-    runAfterCloseEvents(commentsList);
-  }, {once: true});
+const onPhotoCloseClick = () => {
+  closePhotoModal();
+};
 
-  document.addEventListener('keydown', (evt) => {
-    if (evt.key === 'Escape') {
-      runAfterCloseEvents(commentsList);
-    }
-  }, {once: true});
-}
-
-const onListClick = function (evt) {
+const openPhotoModal = function (evt) {
   if (evt.target.tagName === 'IMG') {
     body.classList.add('modal-open');
-    const commentPlace = document.querySelector('.social__comments');
     const commentPlaceList = commentPlace.querySelectorAll('li.social__comment');
     removeComments(commentPlaceList);
     photoEnrichment(evt);
@@ -37,10 +31,19 @@ const onListClick = function (evt) {
 
     bigPhoto.classList.remove('hidden');
 
-    addCloseEvents(commentPlaceList);
+    closePhotoButton.addEventListener('click', onPhotoCloseClick);
+    document.addEventListener('keydown', onPhotoKeydown);
   }
 };
 
+function closePhotoModal() {
+  bigPhoto.classList.add('hidden');
+  body.classList.remove('modal-open');
+
+  closePhotoButton.removeEventListener('click', onPhotoCloseClick);
+  document.removeEventListener('keydown', onPhotoKeydown);
+}
+
 miniPhoto.addEventListener('click', (evt) => {
-  onListClick(evt);
+  openPhotoModal(evt);
 });
