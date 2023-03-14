@@ -1,3 +1,5 @@
+import {removeComments} from './removeComment.js';
+
 const createCommentElement = function (element) {
   const commentElement = document.createElement('li');
   commentElement.classList.add('social__comment');
@@ -19,8 +21,10 @@ const createCommentElement = function (element) {
 };
 
 const createCommentsElementList = function (list) {
-
+  const commentPlace = document.querySelector('.social__comments');
+  const commentPlaceList = commentPlace.querySelectorAll('li.social__comment');
   const commentFragment = document.createDocumentFragment();
+  removeComments(commentPlaceList);
 
   for (let i = 0; i < list.length; i++) {
     commentFragment.appendChild(createCommentElement(list[i]));

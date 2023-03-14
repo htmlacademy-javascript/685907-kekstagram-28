@@ -1,11 +1,9 @@
 import {photoEnrichment} from './photoEnrichment.js';
-import {removeComments} from './removeComment.js';
 
 const closePhotoButton = document.querySelector('.big-picture__cancel');
 const bigPhoto = document.querySelector('.big-picture');
 const miniPhoto = document.querySelector('.pictures');
 const body = document.querySelector('body');
-const commentPlace = document.querySelector('.social__comments');
 
 const onPhotoKeydown = (evt) => {
   if (evt.key === 'Escape') {
@@ -21,8 +19,6 @@ const onPhotoCloseClick = () => {
 const openPhotoModal = function (evt) {
   if (evt.target.tagName === 'IMG') {
     body.classList.add('modal-open');
-    const commentPlaceList = commentPlace.querySelectorAll('li.social__comment');
-    removeComments(commentPlaceList);
     photoEnrichment(evt);
     const socialCommentCount = document.querySelector('.social__comment-count');
     const commentsLoader = document.querySelector('.comments-loader');
