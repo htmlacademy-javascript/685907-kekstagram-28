@@ -1,5 +1,8 @@
-import {removeComments} from './removeComment.js';
-
+const removeComments = function (list) {
+  for (let i = 0; i < list.length; i++) {
+    list[i].remove();
+  }
+};
 const createCommentElement = function (element) {
   const commentElement = document.createElement('li');
   commentElement.classList.add('social__comment');

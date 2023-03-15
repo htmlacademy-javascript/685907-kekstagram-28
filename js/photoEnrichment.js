@@ -1,4 +1,4 @@
-import {createCommentsElementList} from './createComment.js';
+import {createCommentsElementList} from './comments.js';
 import {photoList} from './photoLinker.js';
 
 const photoImg = document.querySelector('.big-picture__img').querySelector('img');
