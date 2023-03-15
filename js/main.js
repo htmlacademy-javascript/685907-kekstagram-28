@@ -1,3 +1,3 @@
 import './functions.js';
-import './renderingPhoto.js';
+import './photoGrid.js';
 import './photoPopup.js';
