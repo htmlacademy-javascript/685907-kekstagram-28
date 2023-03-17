@@ -1,9 +1,11 @@
 import {photoEnrichment} from './photoEnrichment.js';
+import {onCommentLoaderClick} from './photoEnrichment.js';
 
 const closePhotoButton = document.querySelector('.big-picture__cancel');
 const bigPhoto = document.querySelector('.big-picture');
 const miniPhoto = document.querySelector('.pictures');
 const body = document.querySelector('body');
+const commentsLoader = document.querySelector('.comments-loader');
 
 const onPhotoKeydown = (evt) => {
   if (evt.key === 'Escape') {
@@ -20,15 +22,10 @@ const openPhotoModal = function (evt) {
   if (evt.target.tagName === 'IMG') {
     body.classList.add('modal-open');
     photoEnrichment(evt);
-    const socialCommentCount = document.querySelector('.social__comment-count');
-    const commentsLoader = document.querySelector('.comments-loader');
-    socialCommentCount.classList.add('hidden');
-    commentsLoader.classList.add('hidden');
-
     bigPhoto.classList.remove('hidden');
-
     closePhotoButton.addEventListener('click', onPhotoCloseClick);
     document.addEventListener('keydown', onPhotoKeydown);
+    commentsLoader.addEventListener('click', onCommentLoaderClick);
   }
 };
 
@@ -38,6 +35,8 @@ function closePhotoModal() {
 
   closePhotoButton.removeEventListener('click', onPhotoCloseClick);
   document.removeEventListener('keydown', onPhotoKeydown);
+  commentsLoader.removeEventListener('click', onCommentLoaderClick);
+  commentsLoader.classList.remove('hidden');
 }
 
 miniPhoto.addEventListener('click', (evt) => {

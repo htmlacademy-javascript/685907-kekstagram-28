@@ -3,6 +3,7 @@ const removeComments = function (list) {
     list[i].remove();
   }
 };
+
 const createCommentElement = function (element) {
   const commentElement = document.createElement('li');
   commentElement.classList.add('social__comment');
@@ -19,6 +20,7 @@ const createCommentElement = function (element) {
   commentText.classList.add('social__text');
   commentText.textContent = element.message;
   commentElement.appendChild(commentText);
+  commentElement.classList.add('hidden');
 
   return commentElement;
 };
