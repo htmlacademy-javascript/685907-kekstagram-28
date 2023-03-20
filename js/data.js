@@ -2,7 +2,7 @@ import {getRandomInteger, createRandomIdFromRangeGenerator} from './util.js';
 import {messagePartsList, nameList, descriptionList} from './dictionaries.js';
 
 const COUNT_OF_TEST_USERS = 25;
-const commentId = createRandomIdFromRangeGenerator(1, COUNT_OF_TEST_USERS * 5);
+const commentId = createRandomIdFromRangeGenerator(1, COUNT_OF_TEST_USERS * 13);
 
 function getDescription() {
   return `Моя ${descriptionList[getRandomInteger(0, descriptionList.length - 1)]} жизнь.`;
@@ -13,7 +13,7 @@ function getRandomLikes() {
 }
 
 function getComments() {
-  const commentsCount = getRandomInteger(1, 5);
+  const commentsCount = getRandomInteger(1, 13);
   const commentsList = [];
 
   for (let i = 0; i < commentsCount; i++) {
