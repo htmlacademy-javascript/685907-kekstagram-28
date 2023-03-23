@@ -19,7 +19,7 @@ const onPhotoCloseClick = () => {
 };
 
 const openPhotoModal = function (evt) {
-  if (evt.target.tagName === 'IMG') {
+  if (evt.target.className === 'picture__img') {
     body.classList.add('modal-open');
     photoEnrichment(evt);
     bigPhoto.classList.remove('hidden');
