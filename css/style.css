@@ -1412,3 +1412,15 @@ main {
 .form-field-error {
   color: tomato;
 }
+
+.alert-message {
+  z-index: 100;
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  padding: 10px 3px;
+  font-size: 18px;
+  text-align: center;
+  background-color: tomato;
+}
