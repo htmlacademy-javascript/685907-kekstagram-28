@@ -1,5 +1,4 @@
 import {createCommentsElementList} from './comments.js';
-import {photoList} from './photoLinker.js';
 
 const COMMENTS_LOAD_COUNT = 5;
 let actualVisibleCommentsCount = 0;
@@ -9,6 +8,11 @@ const socialCaption = document.querySelector('.social__caption');
 const photoCommentsCount = document.querySelector('.comments-count');
 const commentPlace = document.querySelector('.social__comments');
 const commentsLoader = document.querySelector('.comments-loader');
+
+let photoList;
+const getPhotoList = (list) => {
+  photoList = list;
+};
 
 const getPhotoElement = function (evt) {
   return photoList.find((element) => element.id === +evt.target.getAttribute('data-photo-id'));
@@ -78,4 +82,4 @@ const onCommentLoaderClick = () => {
   createSocialCommentHtmlInner();
 };
 
-export {photoEnrichment, onCommentLoaderClick};
+export {photoEnrichment, onCommentLoaderClick, getPhotoList};

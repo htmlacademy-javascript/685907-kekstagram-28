@@ -21,4 +21,15 @@ function createRandomIdFromRangeGenerator(min, max) {
   };
 }
 
-export {getRandomInteger,createRandomIdFromRangeGenerator};
+const showAlert = (message) => {
+  const alertContainer = document.createElement('div');
+  alertContainer.textContent = message;
+  alertContainer.classList.add('alert-message');
+  document.body.append(alertContainer);
+
+  setTimeout(() => {
+    alertContainer.remove();
+  }, 5000);
+};
+
+export {getRandomInteger,createRandomIdFromRangeGenerator, showAlert};
