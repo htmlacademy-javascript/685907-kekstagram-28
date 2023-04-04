@@ -1,7 +1,7 @@
-import {showAlert} from './util.js';
+import {debounce, showAlert} from './util.js';
 import {onCloseForm, showSuccessSend, showErrorSend, unblockSubmitButton} from './form.js';
 import {getPhotoList} from './photoEnrichment.js';
-import {renderPhoto} from './photoGrid.js';
+import {renderPhoto, showFiltersBlock, renderMostDiscussedPhoto, renderRandomPhoto, getDiscussedPhotosClick, getAllPhotosClick, getRandomPhotosClick} from './photoGrid.js';
 
 const BASE_URL = 'https://28.javascript.pages.academy/kekstagram';
 
@@ -10,12 +10,18 @@ const ErrorText = {
   SEND_DATA: 'Не удалось отправить форму. Попробуйте ещё раз',
 };
 
+const RERENDER_DELAY = 500;
+
 const getData = () => {
   fetch(`${BASE_URL}/data`)
     .then((response) => response.json())
     .then((dataPhoto) => {
       renderPhoto(dataPhoto);
+      getDiscussedPhotosClick(debounce(() => renderMostDiscussedPhoto(dataPhoto)), RERENDER_DELAY);
+      getAllPhotosClick(debounce(() => renderPhoto(dataPhoto)), RERENDER_DELAY);
+      getRandomPhotosClick(debounce(() => renderRandomPhoto(dataPhoto)()), RERENDER_DELAY);
       getPhotoList(dataPhoto);
+      showFiltersBlock();
     })
     .catch(() => {
       showAlert(`${ErrorText.GET_DATA}`);

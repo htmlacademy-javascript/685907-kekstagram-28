@@ -60,7 +60,6 @@ const scaleBiggerButton = document.querySelector('.scale__control--bigger');
 const scaleInputControl = document.querySelector('.scale__control--value');
 const sliderContainer = document.querySelector('.effect-level');
 const photo = document.querySelector('.img-upload__preview');
-const imageElement = photo.querySelector('img');
 const effectsList = document.querySelector('.effects__list');
 const effectLevel = document.querySelector('.effect-level__value');
 const slider = document.querySelector('.effect-level__slider');
@@ -131,7 +130,7 @@ const onEffectChange = (evt) => {
 };
 
 const scaleImage = (value) => {
-  imageElement.style.transform = `scale(${value / 100})`;
+  photo.style.transform = `scale(${value / 100})`;
   scaleInputControl.value = `${value}%`;
 };
 
