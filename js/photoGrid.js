@@ -1,6 +1,3 @@
-import {createRandomIdFromRangeGenerator} from './util.js';
-
-const RANDOM_PHOTO_COUNT = 10;
 const ACTIVE_FILTER_CLASS = 'img-filters__button--active';
 
 const photoListElement = document.querySelector('.pictures');
@@ -20,6 +17,7 @@ const cleanPhotoList = () => {
 };
 
 const preparePhotoElement = (photoList) => {
+  cleanPhotoList();
   const photoListFragments = document.createDocumentFragment();
   photoList
     .forEach(({id, url, likes, comments}) => {
@@ -36,10 +34,6 @@ const preparePhotoElement = (photoList) => {
   return photoListFragments;
 };
 
-function renderPhoto(list) {
-  photoListElement.appendChild(preparePhotoElement(list));
-}
-
 const showFiltersBlock = () => {
   imgFilters.classList.remove('img-filters--inactive');
 };
@@ -52,21 +46,8 @@ const comparePhotosCommentsCount = (photoA, photoB) => {
   return commentCountB - commentCountA;
 };
 
-function renderMostDiscussedPhoto(list) {
-  const preparedFragment = preparePhotoElement(list.slice().sort(comparePhotosCommentsCount));
-  photoListElement.appendChild(preparedFragment);
-}
-
-function renderRandomPhoto(list) {
-  const photoDescriptionsList = [];
-  const randomId = createRandomIdFromRangeGenerator(0, list.length - 1);
-  return function () {
-    for (let i = 0; i < RANDOM_PHOTO_COUNT; i++) {
-      photoDescriptionsList.push(list[randomId()]);
-    }
-    photoListElement.appendChild(preparePhotoElement(photoDescriptionsList));
-    return photoDescriptionsList;
-  };
+function renderPhoto(list) {
+  photoListElement.appendChild(preparePhotoElement(list));
 }
 
 const setActiveFilterButton = (activeButton) => {
@@ -84,7 +65,6 @@ const setActiveFilterButton = (activeButton) => {
 const getAllPhotosClick = (cb) => {
   filterDefaultButton.addEventListener('click', () => {
     setActiveFilterButton(filterDefaultButton);
-    cleanPhotoList();
     cb();
   });
 };
@@ -92,7 +72,6 @@ const getAllPhotosClick = (cb) => {
 const getRandomPhotosClick = (cb) => {
   filterRandomButton.addEventListener('click', () => {
     setActiveFilterButton(filterRandomButton);
-    cleanPhotoList();
     cb();
   });
 };
@@ -100,9 +79,16 @@ const getRandomPhotosClick = (cb) => {
 const getDiscussedPhotosClick = (cb) => {
   filterDiscussedButton.addEventListener('click', () => {
     setActiveFilterButton(filterDiscussedButton);
-    cleanPhotoList();
     cb();
   });
 };
 
-export {renderPhoto, showFiltersBlock, renderMostDiscussedPhoto, renderRandomPhoto, getAllPhotosClick, getRandomPhotosClick, getDiscussedPhotosClick};
+export {
+  renderPhoto,
+  showFiltersBlock,
+  getAllPhotosClick,
+  preparePhotoElement,
+  getRandomPhotosClick,
+  getDiscussedPhotosClick,
+  comparePhotosCommentsCount
+};
