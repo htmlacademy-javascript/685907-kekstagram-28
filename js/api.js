@@ -1,9 +1,17 @@
 import {debounce, showAlert} from './util.js';
 import {onCloseForm, showSuccessSend, showErrorSend, unblockSubmitButton} from './form.js';
 import {getPhotoList} from './photoEnrichment.js';
-import {renderPhoto, showFiltersBlock, renderMostDiscussedPhoto, renderRandomPhoto, getDiscussedPhotosClick, getAllPhotosClick, getRandomPhotosClick} from './photoGrid.js';
+import {
+  renderPhoto,
+  showFiltersBlock,
+  getDiscussedPhotosClick,
+  getAllPhotosClick,
+  getRandomPhotosClick,
+  comparePhotosCommentsCount
+} from './photoGrid.js';
 
 const BASE_URL = 'https://28.javascript.pages.academy/kekstagram';
+const RANDOM_PHOTO_COUNT = 10;
 
 const ErrorText = {
   GET_DATA: 'Не удалось загрузить фотографии. Попробуйте обновить страницу',
@@ -17,9 +25,10 @@ const getData = () => {
     .then((response) => response.json())
     .then((dataPhoto) => {
       renderPhoto(dataPhoto);
-      getDiscussedPhotosClick(debounce(() => renderMostDiscussedPhoto(dataPhoto)), RERENDER_DELAY);
-      getAllPhotosClick(debounce(() => renderPhoto(dataPhoto)), RERENDER_DELAY);
-      getRandomPhotosClick(debounce(() => renderRandomPhoto(dataPhoto)()), RERENDER_DELAY);
+      const renderPhotoDebounced = debounce(renderPhoto);
+      getAllPhotosClick(() => renderPhotoDebounced(dataPhoto), RERENDER_DELAY);
+      getRandomPhotosClick(() => renderPhotoDebounced(dataPhoto.slice().sort(() => Math.random() - 0.5).slice(0, RANDOM_PHOTO_COUNT)), RERENDER_DELAY);
+      getDiscussedPhotosClick(() => renderPhotoDebounced(dataPhoto.slice().sort(comparePhotosCommentsCount)), RERENDER_DELAY);
       getPhotoList(dataPhoto);
       showFiltersBlock();
     })
